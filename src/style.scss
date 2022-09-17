@@ -1,0 +1,21 @@
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 20px;
+  form {
+    display: flex;
+    flex-direction: column;
+    input {
+      padding: 10px;
+      border: none;
+    }
+  }
+}
