@@ -12,7 +12,8 @@ const Register = () => {
           <input type='email' placeholder='Email' />
           <input type='file' placeholder='Insert Avatar Icon' />
         </form>
-        <span>Have an Account? Login</span>
+        <button>Submit</button>
+        <span className='title'>Have an Account? Login</span>
       </div>
     </div>
   );
