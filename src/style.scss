@@ -7,7 +7,6 @@
   .wrapper {
     display: flex;
     flex-direction: column;
-    text-align: center;
     background-color: #d6cda4;
     padding: 20px 30px;
     border-radius: 10%;
@@ -31,6 +30,12 @@
           color: #eef2e6;
         }
       }
+      label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        gap: 15px;
+      }
     }
     button {
       background-color: #3d8361;
@@ -40,6 +45,88 @@
       color: #eef2e6;
       border: none;
       cursor: pointer;
+    }
+  }
+}
+
+.home {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3d8361;
+  .container {
+    border-radius: 10px;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    overflow: hidden;
+    .sidebar {
+      flex: 1;
+      background-color: #eef2e6;
+      position: relative;
+      height: 100%;
+      .navbar {
+        display: flex;
+        align-items: center;
+        height: 30px;
+        background-color: #d6cda4;
+        justify-content: space-between;
+        padding: 20px;
+        .title {
+          height: 100%;
+        }
+        .user {
+          display: flex;
+          gap: 10px;
+          img {
+            background-color: #eef2e6;
+            height: 30px;
+            width: 30px;
+            border-radius: 70%;
+            object-fit: cover;
+          }
+          button {
+            background-color: #eef2e6;
+            font-size: 10px;
+            border: none;
+          }
+        }
+      }
+    }
+    .search {
+      border-bottom: 1px solid #3d8361;
+      .searchfield {
+        padding: 10px;
+        input {
+          background-color: #eef2e6;
+          border: none;
+          outline: none;
+          width: 100%;
+          cursor: pointer;
+        }
+      }
+      .otherUser {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        img {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-right: 10px;
+        }
+        .userNameInfo {
+          gap: 20px;
+        }
+      }
+    }
+    .chat {
+      flex: 2;
+      height: 100%;
+      background-color: #1c6758;
     }
   }
 }
