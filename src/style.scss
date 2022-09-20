@@ -1,3 +1,15 @@
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: white;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #7fb77e;
+  border-radius: 25px;
+}
+
 .container {
   height: 100vh;
   display: flex;
@@ -98,7 +110,7 @@
     .search {
       border-bottom: 1px solid #3d8361;
       .searchfield {
-        padding: 10px;
+        padding: 6px;
         input {
           background-color: #eef2e6;
           border: none;
@@ -107,26 +119,133 @@
           cursor: pointer;
         }
       }
-      .otherUser {
-        padding: 10px;
+    }
+    .otherUser {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #d6cda4;
+      }
+
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+      }
+      .userNameInfo {
+        margin: 0;
+        padding: 0;
         display: flex;
-        align-items: center;
-        img {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          object-fit: cover;
-          margin-right: 10px;
+        flex-direction: column;
+        span {
+          font-size: 15px;
+          font-weight: bold;
         }
-        .userNameInfo {
-          gap: 20px;
+        p {
+          font-size: 12px;
         }
       }
     }
     .chat {
       flex: 2;
       height: 100%;
-      background-color: #1c6758;
+      .chatTitle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 50px;
+        padding: 5px;
+        background-color: #7fb77e;
+        font-weight: bold;
+      }
+      .chatIcons {
+        display: flex;
+        gap: 10px;
+        cursor: pointer;
+      }
+      .messageLog {
+        background-color: #b1d7b4;
+        padding: 10px;
+        height: calc(100% - 140px);
+        overflow: scroll;
+        overflow-x: hidden;
+        .message {
+          display: flex;
+          .messageSender {
+            display: flex;
+            flex-direction: column;
+            font-size: 10px;
+            color: grey;
+            margin-bottom: 10px;
+            img {
+              width: 45px;
+              height: 45px;
+              border-radius: 50%;
+              object-fit: cover;
+              margin-right: 10px;
+            }
+          }
+          .messageInfo {
+            max-width: 80%;
+            display: flex;
+            flex-direction: column;
+            margin: 0px 10px;
+            p {
+              padding: 8px 10px;
+              background-color: #eef2e6;
+              border-radius: 0px 20px 20px 20px;
+              max-width: max-content;
+            }
+            img {
+              width: 40%;
+            }
+          }
+          &.originator {
+            flex-direction: row-reverse;
+            .messageInfo {
+              align-items: flex-end;
+              p {
+                background-color: #d6cda4;
+                border-radius: 20px 0px 20px 20px;
+              }
+            }
+          }
+        }
+      }
+      .send {
+        background-color: white;
+        height: 40px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        input {
+          border: none;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          border: none;
+          outline: none;
+          font-size: 15px;
+          &::placeholder {
+            color: lightgray;
+          }
+        }
+        .sendIcons {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          .send {
+            margin-left: 8px;
+          }
+        }
+      }
     }
   }
 }

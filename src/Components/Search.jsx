@@ -9,8 +9,7 @@ const Search = () => {
       <div className='otherUser'>
         <img
           src='https://i.kym-cdn.com/entries/icons/original/000/020/110/Lord_farquaad_banner.jpg'
-          alt='hi'
-          className='userProfile'
+          alt='ProfilePicture'
         />
         <div className='userNameInfo'>
           <span>Farquod</span>
