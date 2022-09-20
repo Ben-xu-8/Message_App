@@ -4,9 +4,15 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, storage, db } from '../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
   const [err, setErr] = useState(false);
+  const navigate = useNavigate();
+
+  const handleError = () => {
+    setErr(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +43,7 @@ const Register = () => {
               photoURL: downloadURL,
             });
             await setDoc(doc(db, 'userChats', res.user.uid), {});
+            navigate('/');
           });
         }
       );
@@ -48,10 +55,12 @@ const Register = () => {
   return (
     <div className='container'>
       <div className='wrapper'>
-        {err && <span>Invalid Entry</span>}
-        <span className='logo'></span>
-        <span className='title'>Create Connect Chat Account</span>
-        <form onSubmit={handleSubmit}>
+        <div className='error'>{err && <span>Invalid Fields</span>}</div>
+        <img src='/logo.png' alt='' className='title' />
+        <span className='title'>
+          <b>Create ConnectChat Account</b>
+        </span>
+        <form onSubmit={handleSubmit} onChange={handleError}>
           <input type='text' placeholder='Username' />
           <input type='password' placeholder='Password' />
           <input type='email' placeholder='Email' />
@@ -67,7 +76,14 @@ const Register = () => {
           </label>
           <button>Submit</button>
         </form>
-        <span className='title'>Have an Account? Login</span>
+        <span className='title'>
+          <b>
+            Have an Account?{' '}
+            <Link to='/login' style={{ textDecoration: 'none' }}>
+              Login
+            </Link>
+          </b>
+        </span>
       </div>
     </div>
   );

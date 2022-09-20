@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { AuthContext } from '../Context/AuthContext';
 
 const NavBar = () => {
+  const { currentUser } = useContext(AuthContext);
   return (
     <div className='navbar'>
-      <span className='title'> Connect Chat</span>
+      <img src='/logo.png' alt='' className='title' />
       <div className='user'>
-        <img
-          src='https://cdn.vox-cdn.com/thumbor/Hqfig5_bfBpQytkl4IZzmB9V9i4=/0x0:3823x1595/920x613/filters:focal(1607x493:2217x1103):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70505683/ian_mckellan_gandalf_4k_lotr.0.jpg'
-          alt=''
-        />
-        <span className='username'>User</span>
-        <button>Logout</button>
+        <img src={currentUser.photoURL} alt='' />
+        <span className='username'>{currentUser.displayName} </span>
+        <div onClick={() => signOut(auth)}>
+          <LogoutIcon />
+        </div>
       </div>
     </div>
   );

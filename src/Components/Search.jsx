@@ -1,20 +1,98 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  getDoc,
+  setDoc,
+  doc,
+  updateDoc,
+  serverTimestamp,
+} from 'firebase/firestore';
+import { db } from '../firebase';
+import { useContext } from 'react';
+import { AuthContext } from '../Context/AuthContext';
 
 const Search = () => {
+  const [username, setUsername] = useState('');
+  const [user, setUser] = useState(null);
+  const [err, setErr] = useState(false);
+
+  const { currentUser } = useContext(AuthContext);
+
+  const handleSearch = async () => {
+    const q = query(
+      collection(db, 'users'),
+      where('displayName', '==', username)
+    );
+
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        setUser(doc.data());
+      });
+    } catch (err) {
+      setErr(true);
+    }
+  };
+
+  const handleKey = (e) => {
+    e.code === 'Enter' && handleSearch();
+  };
+
+  const handleSelect = async () => {
+    const combinedId =
+      currentUser.uid > user.uid
+        ? currentUser.uid + user.uid
+        : user.uid + currentUser.uid;
+    try {
+      const res = await getDoc(doc(db, 'chats', combinedId));
+      console.log(res);
+      if (!res.exists()) {
+        await setDoc(doc, (db, 'chats', combinedId), { messages: [] });
+        await updateDoc(doc(db, 'userChats', currentUser.uid), {
+          [combinedId + '.userInfo']: {
+            uid: user.uid,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+          },
+          [combinedId + '.date']: serverTimestamp(),
+        });
+        await updateDoc(doc(db, 'userChats', user.uid), {
+          [combinedId + '.userInfo']: {
+            uid: currentUser.uid,
+            displayName: currentUser.displayName,
+            photoURL: currentUser.photoURL,
+          },
+          [combinedId + '.date']: serverTimestamp(),
+        });
+      }
+    } catch (err) {
+      setErr(true);
+      console.log(err);
+    }
+  };
+
   return (
     <div className='search'>
       <div className='searchfield'>
-        <input type='text' placeholder='Find User' />
-      </div>
-      <div className='otherUser'>
-        <img
-          src='https://i.kym-cdn.com/entries/icons/original/000/020/110/Lord_farquaad_banner.jpg'
-          alt='ProfilePicture'
+        <input
+          type='text'
+          placeholder='Find User'
+          onKeyDown={handleKey}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <div className='userNameInfo'>
-          <span>Farquod</span>
-        </div>
       </div>
+      {err && <span>Error Loading Contacts</span>}
+      {user && (
+        <div className='otherUser' onClick={handleSelect}>
+          <img src={user.photoURL} alt='ProfilePicture' />
+          <div className='userNameInfo'>
+            <span>{user.displayName}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
