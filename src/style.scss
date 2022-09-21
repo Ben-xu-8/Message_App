@@ -165,6 +165,9 @@
         }
         p {
           font-size: 12px;
+          max-width: 200px;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
       }
     }
@@ -173,12 +176,22 @@
       height: 100%;
       .chatTitle {
         display: flex;
+        font-size: 25px;
         justify-content: space-between;
         align-items: center;
+        text-align: center;
         height: 50px;
         padding: 5px;
         background-color: #7fb77e;
         font-weight: bold;
+        img {
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin: 10px;
+          // padding: 0px;
+        }
       }
       .chatIcons {
         display: flex;
@@ -213,10 +226,13 @@
             flex-direction: column;
             margin: 0px 10px;
             p {
-              padding: 8px 10px;
+              padding: 15px 15px;
               background-color: #eef2e6;
               border-radius: 0px 20px 20px 20px;
-              max-width: max-content;
+              font-size: 15px;
+              max-width: 50%;
+              height: 100%;
+              word-break: break-word;
             }
             img {
               width: 40%;

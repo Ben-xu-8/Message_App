@@ -11,7 +11,7 @@ import {
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage, db } from '../firebase';
 import { v4 as uuid } from 'uuid';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import { UserContext } from '../Context/UserContext';
 
@@ -21,11 +21,22 @@ const Send = () => {
 
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(UserContext);
+  const inputFile = useRef(null);
+
+  const onButtonClick = () => {
+    inputFile.current.click();
+  };
+
+  const handleKey = (e) => {
+    e.code === 'Enter' && handleSend();
+  };
 
   const handleSend = async () => {
     if (img) {
       const storageRef = ref(storage, uuid());
       const uploadTask = uploadBytesResumable(storageRef, img);
+      console.log(storageRef);
+      console.log(uploadTask);
 
       uploadTask.on(
         (error) => {
@@ -45,6 +56,8 @@ const Send = () => {
           });
         }
       );
+      setText('');
+      setImg(null);
     } else {
       await updateDoc(doc(db, 'chats', data.chatId), {
         messages: arrayUnion({
@@ -78,21 +91,20 @@ const Send = () => {
         type='text'
         placeholder='Send Messasge Here'
         onChange={(e) => setText(e.target.value)}
+        onKeyDown={handleKey}
         value={text}
       />
-      <div className='sendIcons'>
+      <div className='sendIcons' onClick={onButtonClick}>
         <input
           type='file'
           style={{ display: 'none' }}
-          onChange={(e) => setImg(e.target.file[0])}
+          ref={inputFile}
+          onChange={(e) => setImg(e.target.files[0])}
         />
         <AddPhotoAlternateIcon />
-        <div>
-          <AttachFileIcon />
-        </div>
-        <div className='send' onClick={handleSend}>
-          <SendIcon />
-        </div>
+      </div>
+      <div className='send' onClick={handleSend}>
+        <SendIcon />
       </div>
     </div>
   );
