@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
+import { AuthContext } from '../Context/AuthContext';
+import { UserContext } from '../Context/UserContext';
 
-const Message = () => {
+const Message = ({ message }) => {
+  const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(UserContext);
+
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [message]);
+
   return (
-    <div className='message originator'>
+    <div
+      ref={ref}
+      className={`message ${
+        message.senderId === currentUser.uid && 'originator'
+      }`}
+    >
       <div className='messageSender'>
         <img
-          src='https://i.kym-cdn.com/entries/icons/original/000/020/110/Lord_farquaad_banner.jpg'
+          src={
+            message.senderId === currentUser.uid
+              ? currentUser.photoURL
+              : data.user.photoURL
+          }
           alt='hi'
         />
         <span>Just Now</span>
       </div>
       <div className='messageInfo'>
-        <p>A Message</p>
-        <img
-          src='https://i.kym-cdn.com/entries/icons/original/000/020/110/Lord_farquaad_banner.jpg'
-          alt='hi'
-        />
+        <p>{message.text}</p>
+        {message.img && <img src={message.img} alt='hi' />}
       </div>
     </div>
   );
