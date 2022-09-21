@@ -1,5 +1,4 @@
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
 import SendIcon from '@mui/icons-material/Send';
 import {
   arrayUnion,
