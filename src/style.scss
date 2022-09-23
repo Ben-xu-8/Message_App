@@ -137,37 +137,41 @@
         }
       }
     }
-    .otherUser {
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #d6cda4;
-      }
-
-      img {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 10px;
-      }
-      .userNameInfo {
-        margin: 0;
-        padding: 0;
+    .contact {
+      height: 490px;
+      overflow: scroll;
+      .otherUser {
+        padding: 10px;
         display: flex;
-        flex-direction: column;
-        span {
-          font-size: 15px;
-          font-weight: bold;
+        align-items: center;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #d6cda4;
         }
-        p {
-          font-size: 12px;
-          max-width: 200px;
-          text-overflow: ellipsis;
-          overflow: hidden;
+
+        img {
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-right: 10px;
+        }
+        .userNameInfo {
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          span {
+            font-size: 15px;
+            font-weight: bold;
+          }
+          p {
+            font-size: 12px;
+            max-width: 200px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
         }
       }
     }
@@ -230,7 +234,7 @@
               background-color: #eef2e6;
               border-radius: 0px 20px 20px 20px;
               font-size: 15px;
-              max-width: 50%;
+              max-width: 100%;
               height: 100%;
               word-break: break-word;
             }
